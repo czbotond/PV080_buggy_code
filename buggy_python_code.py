@@ -1,7 +1,8 @@
 import sys
 import os
-import yaml
 import flask
+import yaml
+
 
 app = flask.Flask(__name__)
 
@@ -23,15 +24,15 @@ def print_nametag(format_string, person):
     print(format_string.format(person=person))
 
 
-def fetch_website(urllib_version, url):
+def fetch_website(URLLIB_VERSION, url):
     # Import the requested version (2 or 3) of urllib
-    if urllib_version == 2:
-        import urllib as urllib
+    if URLLIB_VERSION == 2:
+        import urllib
     else:
         import urllib3 as urllib
     # Fetch and print the requested URL
- 
-    try: 
+
+    try:
         http = urllib.PoolManager()
         r_something = http.request('GET', url)
     except:
@@ -52,15 +53,15 @@ def authenticate(password):
 
 if __name__ == '__main__':
     print("Vulnerabilities:")
-    print("""1. Format string vulnerability: 
+    print("""1. Format string vulnerability:
     use string={person.__init__.__globals__[CONFIG][API_KEY]}""")
     print("2. Code injection vulnerability: use string=;print('Own code executed') #")
     print("3. Yaml deserialization vulnerability: use string=file.yaml")
     print("4. Use of assert statements vulnerability: run program with -O argument")
-    choice  = input("Select vulnerability: ")
+    choice = input("Select vulnerability: ")
     if choice == "1":
-        new_person = Person("Vickie")
-        print_nametag(input("Please format your nametag: "), new_person)
+        NEW_PERSON = Person("Vickie")
+        print_nametag(input("Please format your nametag: "), NEW_PERSON)
     elif choice == "2":
         urlib_version = input("Choose version of urllib: ")
         fetch_website(urlib_version, url="https://www.google.com")
